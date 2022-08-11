@@ -1,0 +1,12 @@
+input:valid {
+  outline: 2px solid green;
+}
+
+input:user-invalid {
+  outline: 2px solid red;
+}
+.validation-message {
+  margin-top: 0.5em;
+  display: block;
+  color: red;
+}
