@@ -1,23 +1,22 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
-const DEFAULT_MODULE = './ex-04.js';
+const DEFAULT_EXAMPLE = '04';
 
 async function main() {
-  const {pathname} = document.location;
-  let moduleToLoad = pathname.startsWith('/ex-')
-    ? `.${pathname}.js`
-    : DEFAULT_MODULE;
-
+  const { pathname } = document.location;
+  const exampleNumber = pathname.startsWith('/ex-')
+    ? pathname.replace(/^\/ex-/, '')
+    : DEFAULT_EXAMPLE;
   let App = undefined;
 
   try {
-    App = (await import(moduleToLoad)).default;
+    App = (await import(`./ex-${exampleNumber}.js`)).default;
   } catch (err) {
-    console.log(`Failed to load ${pathname}`);
-    App = (await import(DEFAULT_MODULE)).default;
+    console.error(`Failed to load ${pathname}`, err);
+    App = (await import(`./ex-${DEFAULT_EXAMPLE}.js`)).default;
   }
 
   root.render(
